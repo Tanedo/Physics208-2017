@@ -1,0 +1,415 @@
+\documentclass[12pt]{article}
+\newif\ifshowsolutions
+\showsolutionsfalse
+%\showsolutionstrue
+
+%% arXiv paper template by Flip Tanedo
+%% last updated: Dec 2016
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  THE USUAL PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{nopageno}
+\usepackage{enumerate}
+\usepackage{parskip}
+\usepackage{comment}
+	
+	
+%http://tex.stackexchange.com/questions/15509/hide-custom-environment-content-based-on-boolean
+\ifshowsolutions
+	\newenvironment{solution}%
+	{\color{blue!60!black}
+	\textsf{\textbf{Solution}}:
+	}%
+	%
+	{\ignorespacesafterend}
+\else
+	\excludecomment{solution}
+\fi
+	
+%\newenvironment{solution}
+%    {%\begin{sol}
+%    \textcolor{blue!40!black}{
+%	\textbf{Solution}:}
+%    }
+%    { 
+%    %\end{sol}
+%    }
+%    
+%%\includecomment{solution}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  UNUSUAL PACKAGES        %%%%
+%%%  Uncomment as necessary. %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+
+%% MATH AND PHYSICS SYMBOLS
+%% ------------------------
+%\usepackage{slashed}       % \slashed{k}
+%\usepackage{mathrsfs}      % Weinberg-esque letters
+%\usepackage{youngtab}	    % Young Tableaux
+%\usepackage{pifont}        % check marks
+\usepackage{bbm}           % \mathbbm{1} incomp. w/ XeLaTeX 
+%\usepackage[normalem]{ulem} % for \sout
+
+
+%% CONTENT FORMAT AND DESIGN (below for general formatting)
+%% --------------------------------------------------------
+\usepackage{lipsum}        % block of text (formatting test)
+%\usepackage{color}         % \color{...}, colored text
+%\usepackage{framed}        % boxed remarks
+%\usepackage{subcaption}    % subfigures; subfig depreciated
+%\usepackage{paralist}      % compactitem
+%\usepackage{appendix}      % subappendices
+%\usepackage{cite}          % group cites (conflict: collref)
+%\usepackage{tocloft}       % Table of Contents	
+
+
+%% TABLES IN LaTeX
+%% ---------------
+%\usepackage{booktabs}      % professional tables
+%\usepackage{nicefrac}      % fractions in tables,
+%\usepackage{multirow}      % multirow elements in a table
+%\usepackage{arydshln} 	    % dashed lines in arrays
+
+%% Other Packages and Notes
+%% ------------------------
+%\usepackage[font=small]{caption} % caption font is small
+
+
+
+%\renewcommand{\thesection}{}
+%\renewcommand{\thesubsection}{\arabic{subsection}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  PAGE FORMATTING and (RE)NEW COMMANDS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=2cm]{geometry}   % reasonable margins
+
+\graphicspath{{figures/}}	        % set directory for figures
+
+% for capitalized things
+\newcommand{\acro}[1]{\textsc{\MakeLowercase{#1}}}    
+
+\numberwithin{equation}{section}    % set equation numbering
+\renewcommand{\tilde}{\widetilde}   % tilde over characters
+\renewcommand{\vec}[1]{\mathbf{#1}} % vectors are boldface
+
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26}    % for d/2pi
+\newcommand{\ket}[1]{\left|#1\right\rangle}    % <#1|
+\newcommand{\bra}[1]{\left\langle#1\right|}    % |#1>
+\newcommand{\Xmark}{\text{\sffamily X}}        % cross out
+
+% Change list spacing (instead of package paralist)
+% from: http://en.wikibooks.org/wiki/LaTeX/List_Structures#Line_spacing
+%\let\oldenumerate\enumerate
+%\renewcommand{\enumerate}{
+%  \oldenumerate
+%  \setlength{\itemsep}{1pt}
+%  \setlength{\parskip}{0pt}
+%  \setlength{\parsep}{0pt}
+%}
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+
+% Commands for temporary comments
+\newcommand{\flip}[1]{{\color{red} [\textbf{Flip}: {#1}]}}
+\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
+
+\newenvironment{institutions}[1][2em]{\begin{list}{}{\setlength\leftmargin{#1}\setlength\rightmargin{#1}}\item[]}{\end{list}}
+
+
+\usepackage{fancyhdr}		% to put preprint number
+
+
+
+% Commands for listings package
+%\usepackage{listings}      % \begin{lstlisting}, for code
+%
+% \lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+%    sets style to small true-type
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  TIKZ COMMANDS FOR EXTERNAL DIAGRAMS  %%%%
+%%%  requires -shell-escape               %%%%
+%%%  in texpad 1.7: prefs > shell esc sec %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% This is for exporting tikz figures as into a ./tikz/ subfolder.
+%% It is useful if you want pdf versions of the tikz diagrams or
+%% if you need to speed up compilation of a large document with
+%% many tikz diagrams.
+
+%\write18{} % Careful with this!
+%\usetikzlibrary{external}
+%\tikzexternalize[prefix=tikz/] % folder for external pdfs
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%  HYPERREF  %%%%
+%%%%%%%%%%%%%%%%%%%
+
+%% This package has to be at the end; can lead to conflicts
+\usepackage{microtype}
+\usepackage[
+	colorlinks=true,
+	citecolor=black,
+	linkcolor=black,
+	urlcolor=green!50!black,
+	hypertexnames=false]{hyperref}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%%%  TITLE DATA  %%%%
+%%%%%%%%%%%%%%%%%%%%%
+
+%%% PREPRINT NUMBER USING fancyhdr
+%%% Don't forget to set \thispagestyle{firststyle}
+%%% ----------------------------------------------
+%\renewcommand{\headrulewidth}{0pt} % no separator
+%\fancypagestyle{firststyle}{
+%\rhead{\footnotesize \texttt{UCI-TR-2016-XX}}}
+
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+
+\begin{document}
+
+%\thispagestyle{empty}
+%\thispagestyle{firststyle} %% to include preprint
+
+\begin{center}
+
+    {\Large \textsc{Homework 7:} 
+    \textbf{Einstein's Equation}}
+
+
+    
+\end{center}
+
+\vskip .4cm
+
+\noindent
+\begin{tabular*}{\textwidth}{rlcrll}
+	\textsc{Course:}& Physics 208, {General Relativity} (Winter 2017)
+	&
+%	\hspace{1.2cm}
+	&
+	\\
+	\textsc{Instructor:}& Flip Tanedo (\email{flip.tanedo@ucr.edu})
+	&
+	%\hfill
+	&
+	& 
+	\\
+	\textsc{Due Date:}& \textbf{Thursday, March 2} in class. (No class on Tuesday, Feb 28.)
+	&
+	%\hfill
+	&
+	%	
+\end{tabular*}
+
+You are required to complete the {\textsf{Reading Assignment}} and {\textsf{Essential Problems}} below. 
+%
+Please let me know if these are too time intensive. %\footnote{The `essential problems' are meant to be a bare minimum of independent work to follow the course.}.
+%
+No extra problems this week.
+%You are invited to explore the `extra' problems as they apply to your goals for this course: {\textsf{Mathematical Problems}} develop geometric intuition, while {\textsf{Phenomenological Problems}} are applications of relativity. 
+% 
+
+
+
+\vspace{2em}
+{\Large\textbf{\textsf{Reading Assignment}}}
+
+This week: brush up on the derivation of the Einstein equation from as many perspectives as possible. Start reading about gravitational waves\footnote{For those that are interested, Cellar Door Books (in Canyon Crest) will be having a book club discussion on \emph{Black Hole Blues}, by Janna Levin, in April. The book describes the LIGO experiment and some of the characters behind it. \url{http://faculty.ucr.edu/~flipt/physci.html}}.
+
+%Read the following topics. You may choose to read the analogous topics in an appropriate textbook or reference of your preference. Most of this reading is meant to be complementary to the approach in the lectures.
+
+%\begin{itemize}
+%	\item Finish reading about the Einstein equation, chapter 21 of Hartle.
+%\end{itemize}
+
+%\vspace{2em}
+
+%The Schwarzchild metric is:
+%\begin{align}
+%	ds^2 = \left(1-\frac{r_s}{r}\right)dt^2 
+%	- \left(1-\frac{r_s}{r}\right)^{-1}dr^2
+%	- r^2 d\Omega^2 \ .
+%\end{align}
+%We've written $r_s = 2GM$ as the Schwarzschild radius.
+%
+
+\textsc{Caveat emptor}: as always, do what I mean, not necessarily what I say.
+
+
+\vspace{2em}
+{\Large\textbf{\textsf{Essential Problems}}}
+
+\section{Fluid Mechanics from the Relativistic Ideal Fluid}
+
+We introduced the stress energy tensor of the ideal fluid in flat spacetime:
+\begin{align}
+	T^{\mu\nu}(x) = \left(\rho(x) + P(x)\right)U^\mu(x)U^\nu(x) - P(x) \eta^{\mu\nu} \ ,
+\end{align}
+where $\rho$, $P$, and $U$ are the fluid density, pressure, and 4-velocity, respectively.
+
+
+The conservation of 4-momentum states that $\partial_\mu T^{\mu\nu} = 0$. From this we can re-derive some of the key equations of fluid mechanics: 
+\begin{align}
+	\partial_t \rho + \nabla\cdot(\rho \vec v) &=0 \\
+	\rho\left[\partial_t + (\vec v \cdot \nabla) \right]\vec v
+	&= \nabla P \ .
+\end{align}
+These are the continuity and the Euler equations. The bracketed term in the Euler equation is the so-called convective or material derivative. 
+
+Our strategy is to derive these equations in the non-relativistic limit of $\partial_\mu T^\mu\nu(x) = 0$. The two equations correspond to projections of this conservation equation onto two subspaces: (1) the one-dimensional subspace along the 4-velocity $U^\mu$ and (2) the three-dimensional complement of this space.
+
+\begin{enumerate}[(a)]
+\item Because $U$ is normalized to unity, the projection operator is simply $U^\mu$ itself. Note that since the space is one-dimensional, the projection operator only has one tensorial index. The projection operator onto the three-dimensional complement of $U$ is 
+\begin{align}
+P^\alpha_{\phantom\alpha \mu} = \delta^\alpha_\mu - U^\alpha U_\mu \ .
+\label{eq:1:proj}
+\end{align}
+Confirm that this is orthogonal to the one-dimensional subspace and that this projection operator is properly normalized ($P^2 = P$).
+
+\item Prove the following useful result using the fact that $U$ is normalized:
+\begin{align}
+U^\mu \partial_\nu U_\mu = 0 \, .	
+\end{align}
+
+\item Show that the projection of $\partial_\mu T^{\mu\nu} = 0$ onto the one-dimensional subspace gives the continuity equation. To do this, calculate $U_\nu\partial_\mu T^{\mu\nu}$. The previous `useful result' may, indeed, be useful. As an intermediate step, you'll find
+\begin{align}
+	\partial_\mu(\rho U^\mu) - P(\partial_\mu U^\mu) &= 0 \, .
+\end{align}
+Take the non-relativistic limit by replacing $U = (1,\vec v)$ with $|\vec v| \ll 1$ and assume low (non-relativistic) pressure, so that $P \ll \rho$. 
+
+\item Use the projection operator (\ref{eq:1:proj}) to derive the continuity equation from $P^\alpha_{\phantom\alpha \nu}\partial_\mu T^{\mu\nu} = 0$. You should find many terms vanishing or canceling. As an intermediate step, you should find:
+\begin{align}
+	\rho(U\cdot \partial)U^\alpha - \partial^\alpha P + U^\alpha (U\cdot \partial) P &= 0 \, .
+\end{align}
+Confirm that taking the non-relativistic limit and dropping higher-order terms in $\vec v$ and $P$ gives the Euler equation, above. 
+\end{enumerate}
+
+Observe that the Euler equation is the generalization of $\vec F=m\vec a$ for a fluid, where the ``acceleration'' is defined as a convective derivative of the 3-velocity $\vec v$. 
+The simple interpretation for this is that the [total] derivative of the velocity should be expandeD:
+\begin{align}
+	\frac{d\vec v}{dt} &= \frac{\partial\vec v}{\partial t}
+	+ \frac{dx^i}{dt} \frac{\partial \vec v}{\partial x^i} \, ,
+\end{align}
+where the second term is simply $(\vec v \cdot \nabla)\vec v$. 
+
+This expression comes up often in the theory of structure formation and galaxy evolution. See, e.g.\ \texttt{astro-ph/9410043} or your favorite more modern reference\footnote{I like \url{http://www.damtp.cam.ac.uk/user/db275/Cosmology/Chapter4.pdf}.}. In this context, the ``ideal fluid'' that is being described by $T^{\mu\nu}$ is dark matter.
+
+\section{Covariant Constancy of the Einstein Tensor}
+
+In lecture 12 we ``hacked'' together the Einstein equation. Our strategy was to find something which satisfies the heuristic form (inspired by electrodynamics):
+\begin{align}
+	\text{(curvature)} = \text{(coupling)} \; \text{(source)} \, .
+\end{align}
+We identified the source as $T_{\mu\nu}$ and the coupling as something proportional to the Newton constant $G$. We then use the symmetry and two-indexed-ness of $T_{\mu\nu}$ to constrain what the left-hand side might be. After a little thought, we only came up with two possible terms so that the left-hand side must be a linear combination:
+\begin{align}
+	\text{(prefactor)} \left(R_{\mu\nu} + \alpha R g_{\mu\nu}\right) \, .
+\end{align}
+The prefactor may be absorbed into how we define the coupling on the right-hand side. We fixed the relative size $\alpha$ by requiring that the left-hand side is convariantly constant, $D_\mu \left(R_{\mu\nu} + \alpha R g_{\mu\nu}\right) =0$. This is required since the right-hand side is convariantly constant by the conservation of 4-momentum: $D_\mu T^{\mu\nu} = 0$. (This is, of course, the curved space generalization of the main equation used in problem 1.)
+
+In lecture, we claimed that convariant constancy implied $\alpha = -1/2$ and defined the Einstein tensor as
+\begin{align}
+	G_{\mu\nu} = R_{\mu\nu} - \frac 12 R g_{\mu\nu} \, .
+\end{align}
+Prove that $D_\mu G^{\mu\nu} = 0$. 
+
+
+\textsc{Hint}: As an intermediate step, you should prove the Bianchi identity:
+\begin{align}
+	D_\lambda R_{\mu\nu\alpha\beta}
+	+ D_\nu R_{\lambda\mu\alpha\beta}
+	+ D_\mu R_{\nu\lambda\alpha\beta}
+	& = 0\, .
+\end{align}
+How should you do this? Well, it turns out you might want to start by proving the Jacobi identity, which you may remember from quantum mechanics or group theory:
+\begin{align}
+	\left[D_\lambda,[D_\mu,D_\nu]\right]
+	+
+	\left[D_\nu,[D_\lambda,D_\mu]\right]
+	+
+	\left[D_\mu,[D_\nu,D_\lambda]\right]
+	&= 0 \, .
+\end{align}
+Then use a result that we showed when we learned about the Riemann tensor:
+\begin{align}
+	[D_\alpha,D_\beta] A^\mu &= R^\mu_{\phantom\mu \lambda \alpha \beta} A^\lambda  \, .
+\end{align}
+You can, in turn, prove this using $D_\alpha D_\beta A^\mu = D_\alpha(\partial_\beta A^\mu + \Gamma^\mu_{\beta\lambda} A^\lambda)$ and the definition of the Riemann tensor, $R^\mu_{\phantom\mu \lambda\alpha\beta} = \partial_\alpha \Gamma^\mu_{\lambda\beta} + \Gamma^\mu_{\nu\alpha}\Gamma^{\nu}_{\lambda\beta} - (\alpha\leftrightarrow\beta)$.
+
+% p314 of Cheng
+
+
+\section{Einstein Equation for Schwarzschild}
+
+Confirm that Einstein's equation is satisfied for the Schwarzschild metric. \textsc{Hint}: start by showing that it is sufficient to show that $R_{\mu\nu} = 0$. What should you use for $T_{\mu\nu}$? Feel free to use a \textit{Mathematica} package to calculate any curvature quantities.
+
+
+\section{Einstein Equation for Dark Energy}
+
+Suppose you have a universe with a spherically symmetric, but time-dependent metric:
+\begin{align}
+	ds^2 = dt^2 - a(t)^2 d\vec x^2 \, .
+\end{align}
+Fill the universe with a cosmological constant so that the `matter' action is:
+\begin{align}
+	S_\text{stuff} = -\int d^4x \sqrt{g} \Lambda \, .
+\end{align}
+where $g = -\det g_{\mu\nu}$. Use Einstein's equation to determine the form of the \textbf{scale factor}, $a(t)$ up to initial conditions. Feel free to use a \textit{Mathematica} package to calculate any curvature quantities.
+
+%
+%
+%\vspace{2em}
+%{\Large\textbf{\textsf{Phenomenological Problems}}}
+%
+%\section{Galaxy Formation} 
+%?
+%
+%\section{EM in curved space}
+%
+%\section{Einstein's Equation for Schwarzschild Solution}
+%
+%
+%
+%\vspace{2em}
+%{\Large\textbf{\textsf{Mathematical Problems}}}
+%
+%
+%\section{Forms?}
+%
+%\section{Cauchy problem}
+%% D'inverno 13.5
+
+
+
+%
+\end{document}

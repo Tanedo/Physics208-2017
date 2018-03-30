@@ -1,0 +1,339 @@
+\documentclass[12pt]{article}
+\newif\ifshowsolutions
+\showsolutionsfalse
+%\showsolutionstrue
+
+%% arXiv paper template by Flip Tanedo
+%% last updated: Dec 2016
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  THE USUAL PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{nopageno}
+\usepackage{enumerate}
+\usepackage{parskip}
+\usepackage{comment}
+	
+	
+%http://tex.stackexchange.com/questions/15509/hide-custom-environment-content-based-on-boolean
+\ifshowsolutions
+	\newenvironment{solution}%
+	{\color{blue!60!black}
+	\textsf{\textbf{Solution}}:
+	}%
+	%
+	{\ignorespacesafterend}
+\else
+	\excludecomment{solution}
+\fi
+	
+%\newenvironment{solution}
+%    {%\begin{sol}
+%    \textcolor{blue!40!black}{
+%	\textbf{Solution}:}
+%    }
+%    { 
+%    %\end{sol}
+%    }
+%    
+%%\includecomment{solution}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  UNUSUAL PACKAGES        %%%%
+%%%  Uncomment as necessary. %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+
+%% MATH AND PHYSICS SYMBOLS
+%% ------------------------
+%\usepackage{slashed}       % \slashed{k}
+%\usepackage{mathrsfs}      % Weinberg-esque letters
+%\usepackage{youngtab}	    % Young Tableaux
+%\usepackage{pifont}        % check marks
+\usepackage{bbm}           % \mathbbm{1} incomp. w/ XeLaTeX 
+%\usepackage[normalem]{ulem} % for \sout
+
+
+%% CONTENT FORMAT AND DESIGN (below for general formatting)
+%% --------------------------------------------------------
+\usepackage{lipsum}        % block of text (formatting test)
+%\usepackage{color}         % \color{...}, colored text
+%\usepackage{framed}        % boxed remarks
+%\usepackage{subcaption}    % subfigures; subfig depreciated
+%\usepackage{paralist}      % compactitem
+%\usepackage{appendix}      % subappendices
+%\usepackage{cite}          % group cites (conflict: collref)
+%\usepackage{tocloft}       % Table of Contents	
+
+
+%% TABLES IN LaTeX
+%% ---------------
+%\usepackage{booktabs}      % professional tables
+%\usepackage{nicefrac}      % fractions in tables,
+%\usepackage{multirow}      % multirow elements in a table
+%\usepackage{arydshln} 	    % dashed lines in arrays
+
+%% Other Packages and Notes
+%% ------------------------
+%\usepackage[font=small]{caption} % caption font is small
+
+
+
+%\renewcommand{\thesection}{}
+%\renewcommand{\thesubsection}{\arabic{subsection}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  PAGE FORMATTING and (RE)NEW COMMANDS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=2cm]{geometry}   % reasonable margins
+
+\graphicspath{{figures/}}	        % set directory for figures
+
+% for capitalized things
+\newcommand{\acro}[1]{\textsc{\MakeLowercase{#1}}}    
+
+\numberwithin{equation}{section}    % set equation numbering
+\renewcommand{\tilde}{\widetilde}   % tilde over characters
+\renewcommand{\vec}[1]{\mathbf{#1}} % vectors are boldface
+
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26}    % for d/2pi
+\newcommand{\ket}[1]{\left|#1\right\rangle}    % <#1|
+\newcommand{\bra}[1]{\left\langle#1\right|}    % |#1>
+\newcommand{\Xmark}{\text{\sffamily X}}        % cross out
+
+% Change list spacing (instead of package paralist)
+% from: http://en.wikibooks.org/wiki/LaTeX/List_Structures#Line_spacing
+%\let\oldenumerate\enumerate
+%\renewcommand{\enumerate}{
+%  \oldenumerate
+%  \setlength{\itemsep}{1pt}
+%  \setlength{\parskip}{0pt}
+%  \setlength{\parsep}{0pt}
+%}
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+
+% Commands for temporary comments
+\newcommand{\flip}[1]{{\color{red} [\textbf{Flip}: {#1}]}}
+\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
+
+\newenvironment{institutions}[1][2em]{\begin{list}{}{\setlength\leftmargin{#1}\setlength\rightmargin{#1}}\item[]}{\end{list}}
+
+
+\usepackage{fancyhdr}		% to put preprint number
+
+
+
+% Commands for listings package
+%\usepackage{listings}      % \begin{lstlisting}, for code
+%
+% \lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+%    sets style to small true-type
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  TIKZ COMMANDS FOR EXTERNAL DIAGRAMS  %%%%
+%%%  requires -shell-escape               %%%%
+%%%  in texpad 1.7: prefs > shell esc sec %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% This is for exporting tikz figures as into a ./tikz/ subfolder.
+%% It is useful if you want pdf versions of the tikz diagrams or
+%% if you need to speed up compilation of a large document with
+%% many tikz diagrams.
+
+%\write18{} % Careful with this!
+%\usetikzlibrary{external}
+%\tikzexternalize[prefix=tikz/] % folder for external pdfs
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%  HYPERREF  %%%%
+%%%%%%%%%%%%%%%%%%%
+
+%% This package has to be at the end; can lead to conflicts
+\usepackage{microtype}
+\usepackage[
+	colorlinks=true,
+	citecolor=black,
+	linkcolor=black,
+	urlcolor=green!50!black,
+	hypertexnames=false]{hyperref}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%%%  TITLE DATA  %%%%
+%%%%%%%%%%%%%%%%%%%%%
+
+%%% PREPRINT NUMBER USING fancyhdr
+%%% Don't forget to set \thispagestyle{firststyle}
+%%% ----------------------------------------------
+%\renewcommand{\headrulewidth}{0pt} % no separator
+%\fancypagestyle{firststyle}{
+%\rhead{\footnotesize \texttt{UCI-TR-2016-XX}}}
+
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+
+\begin{document}
+
+%\thispagestyle{empty}
+%\thispagestyle{firststyle} %% to include preprint
+
+\begin{center}
+
+    {\Large \textsc{Homework 4:} 
+    \textbf{Schwarzschild Metric}}
+
+
+    
+\end{center}
+
+\vskip .4cm
+
+\noindent
+\begin{tabular*}{\textwidth}{rlcrll}
+	\textsc{Course:}& Physics 208, {General Relativity} (Winter 2017)
+	&
+%	\hspace{1.2cm}
+	&
+	\\
+	\textsc{Instructor:}& Flip Tanedo (\email{flip.tanedo@ucr.edu})
+	&
+	%\hfill
+	&
+	& 
+	\\
+	\textsc{Due Date:}& Tuesday, Feb 14 in class... or, you know, like... whenever.
+	&
+	%\hfill
+	&
+	%	
+\end{tabular*}
+
+You are required to complete the {\textsf{Reading Assignment}} and {\textsf{Essential Problems}} below. 
+%
+Please let me know if these are too time intensive. %\footnote{The `essential problems' are meant to be a bare minimum of independent work to follow the course.}.
+%
+You are invited to explore the `extra' problems as they apply to your goals for this course: {\textsf{Mathematical Problems}} develop geometric intuition, while {\textsf{Phenomenological Problems}} are applications of relativity. 
+% 
+
+Because this problem set is late (and the previous one was long), this will be a short set.
+
+
+\vspace{2em}
+{\Large\textbf{\textsf{Reading Assignment}}}
+
+Read the following topics. You may choose to read the analogous topics in an appropriate textbook or reference of your preference. Most of this reading is meant to be complementary to the approach in the lectures.% For those who would like a solid reference for the material in the lectures, a good place is Weinberg (\emph{Gravitation and Cosmology}, not the newer \emph{Cosmology} book), chapter 3 and the beginning of 4.
+
+\begin{itemize}
+	\item Make sure you're familiar with chapters 20 and 21 of Hartle (you can skip the linear equations)
+	\item Finish chapter 9 continue to chapter 12 of Hartle
+	\item Read chapter 11.1 of Hartle if you're interested in lensing.
+%	\item  Play with Hartle's \emph{Mathematica} notebooks\footnote{\url{http://web.physics.ucsb.edu/~gravitybook/mathematica.html}} for calculating connections and curvatures.
+%	\item Read Hartle chapter 9-1 on Schwarzschild geometry, 9-2 on the `slick' derivation of gravitational redshift (which we called gravitational time dilation in lecture), and 9-3 focusing on the discussion of conserved quantities. 
+%	\item We've now gone over the `mathematical' material of Hartle 20-1, which you may review in the book for a slightly more practical approach. Read Hartle 21-1 -- 21-4 introducing Einstein's equation. 
+%	\item If you're looking for something more mathematically rigorous, you can read chapter 3 of Carroll. 
+\end{itemize}
+
+\vspace{2em}
+
+\textsc{Reminder}: The Schwarzschild metric is:
+\begin{align}
+	ds^2 = \left(1-\frac{r_s}{r}\right) dt^2
+	- \left(1-\frac{r_s}{r}\right)^{-1} dr^2
+	- r^2 d\Omega^2 \ ,
+\end{align}
+where $r_s = 2GM$ and $d\Omega^2 = d\theta^2 + \sin^2\theta d\phi^2$.
+
+\vspace{2em}
+{\Large\textbf{\textsf{Essential Problems}}}
+
+\section{Gravitational Index of Refraction}
+
+For a spherically symmetric metric, the speed of light according to a local observer (at the origin) is measured by looking at the [small] displacement $dr$ divided by some [small] proper time $d\tau$. Indeed, the observer measures $dr/d\tau = 1$. 
+
+Because of gravitational time dilation, this is no longer true for some observer located a finite distance away from the measurement. In the spherically symmetric metrics that we've encountered, the time coordinate $t$ is that given by a clock that's far from the gravitational source. In other words, the speed of light observed a distance $r$ away is given by $dr/dt$. What is the speed of light observed at distance $r$ in the Schwarzschild metric? What is the speed of light in the `Newtonian' metric, $ds^2 = g_{00}(r) dt^2 - d\vec x^2$, where $g_{00}(r) = (1-r_s/r)$? What is the corresponding [position-dependent] \textbf{index of refraction} for these two spaces? 
+
+If we used the Newtonian metric to measure gravitational lensing (See Hartle chapter 11.1), how would our predictions compare to the `correct' lensing angle predicted from the Schwarzschild metric?
+
+%%Cheng 4.3.2
+%There's a famous factor of 2 between the Newtonian approximation of general relativity that we derived early in the quarter compared to the more complete version described by the Schwarzschild metric. Recall that the Newtonian approximation has metric
+%\begin{align}
+%	ds^2 = \left(1-\frac{r_s}{r}\right) dt^2 - dr^2 - r^2 d\Omega^2 \ ,
+%\end{align}
+%where we've identified $\Phi(r) = -r_s/r$. This differs from Schwarzschild in that there's no $(1-r_s/r)^{-1}$ term in $g_{rr}$. 
+%\begin{enumerate}
+%	\item The index of refraction, $n$, is the ratio of the speed of light in a medium compared to the speed of light in vacuum\footnote{Here vacuum means `in the absence of sources that cause curvature.'}. We have chosen units so that the speed of light in vacuum is $dr/d\tau = 1$. Show that the index of refraction in the Newtonian approximation is 
+%		\begin{align}
+%			n(r) = 1 + \frac{r_s}{r} \ ,
+%		\end{align}
+%		to leading order in $r_s/r$. 
+%\end{enumerate}
+%
+%
+%Cheng 7.2
+%
+%%p92
+
+
+\section{Christoffels of Schwarzschild}
+
+Use the \emph{Mathematica} package on Jim Hartle's webpage\footnote{\url{http://web.physics.ucsb.edu/~gravitybook/mathematica.html}} to calculate the Christoffel symbols of the Schwarzschild metric and the four geodesic equations. 
+
+Please calculate the $\Gamma^t_{rt}$ coefficient by hand and compare to the \emph{Mathematica} results.
+
+\vspace{2em}
+{\Large\textbf{\textsf{Phenomenological Problems}}}
+
+\section{Precession of the Perhelion of Mercury}
+
+In class we derived a `constant energy equation' for the Schwarzschild metric. We identified the correction to the ordinary Newtonian central force potential. Treating this correction as a perturbation to the Newtonian potential and using the results from ordinary mechanics, calculate that the precession of the perhelion of Mercury is indeed 43 arc-seconds per century.  It is useful to use:
+\begin{align}
+	r(\phi) &= \frac{\alpha}{1+e\cos\left((1-\varepsilon)\phi\right)}
+	&
+	\alpha &\equiv \frac{\ell^2}{GMm^2} = \frac{2\ell^2}{r_sm^2} \ .
+\end{align}
+Here $e=0.206$ is the eccentricity of the orbit of Mercury. You'll need to show that 
+\begin{align}
+	\varepsilon = \frac{3r_s}{2\alpha} \ .
+\end{align}
+Use $r_s = 2.95~\text{km}$ and $r_\text{min} = 4.6\times 10^{7}$. Play with the results in Hartle's \emph{Mathematica} notebook for Schwarzschild orbits.
+
+
+\vspace{2em}
+{\Large\textbf{\textsf{Mathematical Problems}}}
+
+
+\section{Birkhoff's Theorem}
+
+There's a fantastic result called \textbf{Birkhoff's Theorem} which says that spherically symmetric spacetimes must be time-independent and asymptotically flat. The first statement says that the metric is static, the second says that far away from the origin it looks like Minkowski space. Follow \textbf{Hartle, problem 21-18} to prove this theorem. 
+
+\textsc{Note}: Okay, so you use Einstein's equation for this... you have all of the ingredients to use Einstein's equation, but we haven't brought it up in class yet. 
+
+ 
+
+
+%
+\end{document}

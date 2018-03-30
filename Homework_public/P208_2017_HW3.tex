@@ -1,0 +1,646 @@
+\documentclass[12pt]{article}
+\newif\ifshowsolutions
+\showsolutionsfalse
+%\showsolutionstrue
+
+%% arXiv paper template by Flip Tanedo
+%% last updated: Dec 2016
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  THE USUAL PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{nopageno}
+\usepackage{enumerate}
+\usepackage{parskip}
+\usepackage{comment}
+	
+	
+%http://tex.stackexchange.com/questions/15509/hide-custom-environment-content-based-on-boolean
+\ifshowsolutions
+	\newenvironment{solution}%
+	{\color{blue!60!black}
+	\textsf{\textbf{Solution}}:
+	}%
+	%
+	{\ignorespacesafterend}
+\else
+	\excludecomment{solution}
+\fi
+	
+%\newenvironment{solution}
+%    {%\begin{sol}
+%    \textcolor{blue!40!black}{
+%	\textbf{Solution}:}
+%    }
+%    { 
+%    %\end{sol}
+%    }
+%    
+%%\includecomment{solution}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  UNUSUAL PACKAGES        %%%%
+%%%  Uncomment as necessary. %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+
+%% MATH AND PHYSICS SYMBOLS
+%% ------------------------
+%\usepackage{slashed}       % \slashed{k}
+%\usepackage{mathrsfs}      % Weinberg-esque letters
+%\usepackage{youngtab}	    % Young Tableaux
+%\usepackage{pifont}        % check marks
+\usepackage{bbm}           % \mathbbm{1} incomp. w/ XeLaTeX 
+%\usepackage[normalem]{ulem} % for \sout
+
+
+%% CONTENT FORMAT AND DESIGN (below for general formatting)
+%% --------------------------------------------------------
+\usepackage{lipsum}        % block of text (formatting test)
+%\usepackage{color}         % \color{...}, colored text
+%\usepackage{framed}        % boxed remarks
+%\usepackage{subcaption}    % subfigures; subfig depreciated
+%\usepackage{paralist}      % compactitem
+%\usepackage{appendix}      % subappendices
+%\usepackage{cite}          % group cites (conflict: collref)
+%\usepackage{tocloft}       % Table of Contents	
+
+
+%% TABLES IN LaTeX
+%% ---------------
+%\usepackage{booktabs}      % professional tables
+%\usepackage{nicefrac}      % fractions in tables,
+%\usepackage{multirow}      % multirow elements in a table
+%\usepackage{arydshln} 	    % dashed lines in arrays
+
+%% Other Packages and Notes
+%% ------------------------
+%\usepackage[font=small]{caption} % caption font is small
+
+
+
+%\renewcommand{\thesection}{}
+%\renewcommand{\thesubsection}{\arabic{subsection}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  PAGE FORMATTING and (RE)NEW COMMANDS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=2cm]{geometry}   % reasonable margins
+
+\graphicspath{{figures/}}	        % set directory for figures
+
+% for capitalized things
+\newcommand{\acro}[1]{\textsc{\MakeLowercase{#1}}}    
+
+\numberwithin{equation}{section}    % set equation numbering
+\renewcommand{\tilde}{\widetilde}   % tilde over characters
+\renewcommand{\vec}[1]{\mathbf{#1}} % vectors are boldface
+
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26}    % for d/2pi
+\newcommand{\ket}[1]{\left|#1\right\rangle}    % <#1|
+\newcommand{\bra}[1]{\left\langle#1\right|}    % |#1>
+\newcommand{\Xmark}{\text{\sffamily X}}        % cross out
+
+% Change list spacing (instead of package paralist)
+% from: http://en.wikibooks.org/wiki/LaTeX/List_Structures#Line_spacing
+%\let\oldenumerate\enumerate
+%\renewcommand{\enumerate}{
+%  \oldenumerate
+%  \setlength{\itemsep}{1pt}
+%  \setlength{\parskip}{0pt}
+%  \setlength{\parsep}{0pt}
+%}
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+
+% Commands for temporary comments
+\newcommand{\flip}[1]{{\color{red} [\textbf{Flip}: {#1}]}}
+\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
+
+\newenvironment{institutions}[1][2em]{\begin{list}{}{\setlength\leftmargin{#1}\setlength\rightmargin{#1}}\item[]}{\end{list}}
+
+
+\usepackage{fancyhdr}		% to put preprint number
+
+
+
+% Commands for listings package
+%\usepackage{listings}      % \begin{lstlisting}, for code
+%
+% \lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+%    sets style to small true-type
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  TIKZ COMMANDS FOR EXTERNAL DIAGRAMS  %%%%
+%%%  requires -shell-escape               %%%%
+%%%  in texpad 1.7: prefs > shell esc sec %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% This is for exporting tikz figures as into a ./tikz/ subfolder.
+%% It is useful if you want pdf versions of the tikz diagrams or
+%% if you need to speed up compilation of a large document with
+%% many tikz diagrams.
+
+%\write18{} % Careful with this!
+%\usetikzlibrary{external}
+%\tikzexternalize[prefix=tikz/] % folder for external pdfs
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%  HYPERREF  %%%%
+%%%%%%%%%%%%%%%%%%%
+
+%% This package has to be at the end; can lead to conflicts
+\usepackage{microtype}
+\usepackage[
+	colorlinks=true,
+	citecolor=black,
+	linkcolor=black,
+	urlcolor=green!50!black,
+	hypertexnames=false]{hyperref}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%%%  TITLE DATA  %%%%
+%%%%%%%%%%%%%%%%%%%%%
+
+%%% PREPRINT NUMBER USING fancyhdr
+%%% Don't forget to set \thispagestyle{firststyle}
+%%% ----------------------------------------------
+%\renewcommand{\headrulewidth}{0pt} % no separator
+%\fancypagestyle{firststyle}{
+%\rhead{\footnotesize \texttt{UCI-TR-2016-XX}}}
+
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+
+\begin{document}
+
+%\thispagestyle{empty}
+%\thispagestyle{firststyle} %% to include preprint
+
+\begin{center}
+
+    {\Large \textsc{Homework 3:} 
+    \textbf{Curved Space}}
+
+
+    
+\end{center}
+
+\vskip .4cm
+
+\noindent
+\begin{tabular*}{\textwidth}{rlcrll}
+	\textsc{Course:}& Physics 208, {General Relativity} (Winter 2017)
+	&
+%	\hspace{1.2cm}
+	&
+	\\
+	\textsc{Instructor:}& Flip Tanedo (\email{flip.tanedo@ucr.edu})
+	&
+	%\hfill
+	&
+	& 
+	\\
+	\textsc{Due Date:}& Tuesday, Feb 7 in class... or, you know, like... whenever.
+	&
+	%\hfill
+	&
+	%	
+\end{tabular*}
+
+You are required to complete the {\textsf{Reading Assignment}} and {\textsf{Essential Problems}} below. 
+%
+Please let me know if these are too time intensive. %\footnote{The `essential problems' are meant to be a bare minimum of independent work to follow the course.}.
+%
+You are invited to explore the `extra' problems as they apply to your goals for this course: {\textsf{Mathematical Problems}} develop geometric intuition, while {\textsf{Phenomenological Problems}} are applications of relativity. 
+% 
+
+
+\vspace{2em}
+{\Large\textbf{\textsf{Reading Assignment}}}
+
+Read the following topics. You may choose to read the analogous topics in an appropriate textbook or reference of your preference. Most of this reading is meant to be complementary to the approach in the lectures. For those who would like a solid reference for the material in the lectures, a good place is Weinberg (\emph{Gravitation and Cosmology}, not the newer \emph{Cosmology} book), chapter 3 and the beginning of 4.
+
+\begin{itemize}
+	\item Finish reading chapter 8 of Hartle on geodesics. Go through the examples as necessary to build up your intuition for calculating Christoffel symbols. Read about Killing vectors and consevation laws. 
+	\item Play with Hartle's \emph{Mathematica} notebooks\footnote{\url{http://web.physics.ucsb.edu/~gravitybook/mathematica.html}} for calculating connections and curvatures.
+	\item Read Hartle chapter 9-1 on Schwarzschild geometry, 9-2 on the `slick' derivation of gravitational redshift (which we called gravitational time dilation in lecture), and 9-3 focusing on the discussion of conserved quantities. 
+	\item We've now gone over the `mathematical' material of Hartle 20-1, which you may review in the book for a slightly more practical approach. Read Hartle 21-1 -- 21-4 introducing Einstein's equation. 
+	\item If you're looking for something more mathematically rigorous, you can read chapter 3 of Carroll. 
+\end{itemize}
+
+
+\vspace{2em}
+{\Large\textbf{\textsf{Essential Problems}}}
+
+\section{Geodesics (Hartle 8-3)}
+
+This problem is just flexing some computational muscle. A 3D spacetime has the metric
+\begin{align}
+	ds^2 = \left(1-\frac{2M}{r}\right) dt^2 
+	- \left(1-\frac{2M}{r}\right)^{-1} dr^2
+	+ r^2 d\phi^2 \ .
+\end{align}
+\begin{enumerate}[(a)]
+	\item Find the ``Lagrangian'' for the variational principle to use to determine the geodesics in this spacetime and in these coordinates.
+	\item Write the components of the geodesic equation by computing them from the Lagrangian. 
+	\item Read off the non-zero Christoffel symbols for this metric.
+\end{enumerate}
+
+\section{Limits of the equivalence principle}
+
+We've made a big deal about the equivalence principle and the proposal that a free falling frame is locally flat. Physically, this meant that in free fall, everything looks like special relativity. Let's understand the limits of how `special relativistic' we can choose to make things---in doing so, we'll understand the importance of the \emph{locality} in a `local inertial frame.'
+
+Consider a general $D$-dimensional, sufficiently nice\footnote{Riemannian manifold: a manifold armed with a metric that is smoothly defined.} space. The metric may be Taylor expanded about the origin:
+\begin{align}
+	g_{\mu\nu}(x) = g_{\mu\nu}(0) + A_{\mu\nu\lambda} x^\lambda + B_{\mu\nu\lambda\sigma} x^\lambda x^\sigma \cdots \ .
+\end{align}
+We define a general change of coordinates $x(y)$ by its Taylor expansion, 
+\begin{align}
+	x^\mu = K^\mu_{\phantom{\mu} \alpha} y^\alpha
+	+ L^\mu_{\phantom{\mu} \alpha\beta} y^\alpha y^\beta
+	+ M^\mu_{\phantom{\mu} \alpha\beta\delta} y^\alpha y^\beta y^\delta
+	+ \cdots \ .
+\end{align}
+(We have chosen that $x$ and $y$ share the same origin.)
+We would like to choose the parameters $K$, $L$, $M$, $\cdots$ so that the metric in $y$ coordinates, $g'_{\alpha\beta}(y)$ is as flat as possible. 
+
+We can make the metric flat at the origin, 
+	\begin{align}
+		g'_{\alpha\beta}(0) = g_{\mu\nu}(0) K^\mu_{\phantom{\mu} \alpha} K^\nu_{\phantom{\mu} \beta} \sim \mathbf{K}^T\, \mathbf{g} \, \mathbf{K} \ ,
+	\end{align}
+	where on the right-hand side we've written this suggestively as a matrix multiplication.
+	We know that we can make $g'_{\alpha\beta}(0) = \eta_{\alpha\beta}$ because $g_{\mu\nu}(0)$ is a real, symmetric matrix so that it is diagonalizable by some real matrix $K$ acting on it as we wrote above.
+
+\begin{enumerate}[(a)]
+	\item Once you've diagonalized $g_{\mu\nu}(0)$, you can do a rescaling so that all the elements on the diagonal have unit length. Is it possible to change the \textbf{signature} of the metric, the number of positive versus negative eigenvalues?
+	\item $K^\mu_{\phantom{\mu} \alpha}$ is an arbitrary matrix while $g_{\mu\nu}(0)$ is symmetric. How many degrees of freedom (independent elements) are left in $K^\mu_{\phantom{\mu} \alpha}$ after fixing $g_{\mu\nu}(0) = \eta_{\mu\nu}$? Confirm that this is the same as the degrees of freedom in an antisymmetric matrix\footnote{Recall that the generators of a rotation in $D$-dimensional space are antisymmetric matrices. In other words: the freedom left over is precisely the leftover ``rotational'' symmetries of flat space}.
+	\item Argue that there are enough degrees of freedom in $L^\mu_{\phantom{\mu}\alpha\beta}$ to set $A_{\mu\nu\lambda}=0$ so that the transformed metric has no linear term. 
+	\item The number\footnote{You may prove this by induction using the fact that $M$ is symmetric in its last three indices, thus you only count configurations where, say, $\alpha\geq \beta\geq \delta$. Maybe use the `sticks and bars' method if you're stuck, \url{https://en.wikipedia.org/wiki/Stars_and_bars_(combinatorics)}.} of degrees of freedom in $M^\mu_{\phantom{\mu}\alpha\beta\delta}$ is $\frac 16 D^2(D+1)(D+2)$. How many degrees of freedom are in $B_{\mu\nu\lambda\sigma}$? Argue that in $D=4$, there are 20 degrees of freedom that one cannot remove. 
+	\item We've shown that there's a limit to `how flat' we can make a metric by coordinate transform (free falling). There's an analogy here to the tides. The Earth and Moon are free falling towards each other; despite the equivalence principle, we experience measurable phenomena on Earth (tides, maybe werewolves) that tell us about the gravity caused by the moon. Why is this? \textsc{Hint}: why don't we feel significant tidal forces from the sun, even if the sun's gravity is much stronger?
+\end{enumerate}
+
+The result of this analysis is that the second derivatives of $g_{\mu\nu}$ carry information about curvature that cannot be removed by going to `free falling' coordinates. 
+%
+\textsc{Remark}: this problem is based on Zee section I.6, Schutz section 6.2, Cheng 6.3.1, and Hartle problem 7-9.
+
+
+\section{Volume elements, I}
+
+% From: Zee I.5
+
+We've spent a lot of time talking about differentiation, let's take a moment to think about integration. The volume element in ordinary 3-space is $d^3x = dx\, dy\, dz$. If we change to spherical coordinates, we know that the volume element is \emph{not} simply the product of the three new coordinates $dr \, d\phi\, d\theta$, but rather
+\begin{align}
+	d^3x = r^2 dr \, d\phi \, d\cos\theta   \ .
+\end{align}
+This is because the change of coordinates comes with a determinant of the Jacobian matrix\footnote{For the geometry cognoscenti, this pops automatically from the transformation rules of a $k$-form, in this case $dx\wedge dy\wedge dz$.},
+\begin{align}
+	J^\mu_{\phantom{\mu}\nu} =  \frac{\partial x'^\mu}{\partial x^\nu} \ .
+\end{align}
+Write $J = \det J^\mu_{\phantom{\mu}\nu}$ and define the absolute value of the determinant of the metric, $g=|\det g_{\mu\nu}|$.
+\begin{enumerate}[(a)]
+	\item From the transformation rule of the metric tensor, $g_{\mu\nu}$, show that $g$ in the transformed coordinates satisfies $g' = J^2 g$. Thus show that $d^4x\, \sqrt{g}$ is invariant under a change of coordinates: $d^4x \sqrt{g} = d^4x'\sqrt{g'}$.  
+	\item Check that $d^3x \, \sqrt{g}$ is indeed the correct volume element in Euclidean 3-space with spherical coordinates.
+\end{enumerate}
+
+\section{Volume elements, II}
+
+We can make use of the previous result to re-derive some nice results about covariant derivatives based on invariance. Remember that the covariant derivative $D_\mu$ is the ``correct'' version of $\partial_\mu$ on curved space. Further, recall that $D_\mu$ acting on a scalar function $\phi(x)$ reduces to $\partial_\mu$ since there is no `additional transformation' to correct. Thus $D_\mu\phi(x) = \partial_\mu\phi(x)$ indeed transforms like a vector.
+\begin{enumerate}[(a)]
+\item Introduce a vector field $V^\mu(x)$. By the separate invariances of $d^4x \sqrt{g}$ and $V^\mu(x) \partial_\mu \phi(x)$, we know that the integral
+\begin{align}
+	I = \int d^4x \sqrt{g} V^\mu(x) \partial_\mu \phi(x) 
+\end{align}
+is also invariant under coordinate transformations. Integrate by parts to write this in the form
+\begin{align}
+	I = - \int d^4x \sqrt{g} \, \phi(x) \, \mathcal D_\mu W^\mu \ ,
+\end{align}
+where we are \emph{defining} $\mathcal D_\mu W^\mu$ to be whatever you get from integrating by parts and writing $I$ in the above form. Write this term explicitly in terms of $g$. Here we wrote the volume element for a 4-dimensional space---but you should be comfortable that we could have done this in arbitrary dimensions.
+\item Given the expression of the affine connection in terms of the metric (the only $\Gamma^\rho_{\mu\nu}$ that we'll use in this course), confirm that the expression in (a) is indeed the divergence with respect to the covariant derivative $\mathcal D_\mu W^\mu = D_\mu W^\mu$.
+ \item Using your result in (b), check that $D_i W^i$ gives the divergence of a vector in Euclidean 3-space with spherical coordinates. In this case, the space is flat, but the coordinates are curvy, so that one must use a covariant derivative.
+\item \textsc{[Optional]} We can use a similar trick to determine the Laplacian. Start with the integral
+	\begin{align}
+		I = \int d^4x \sqrt{g} g^{\mu\nu} (\partial_\mu \phi)(\partial_\nu \phi) \ ,
+	\end{align}
+	for some scalar field $\phi(x)$. As before, this is a scalar. Using arguments similar to those above, this to derive an expression for $D^2\phi$ in terms of $g$  and $g^{\mu\nu}$. 
+	
+	\textsc{Remark}: The integral here is the action of a free scalar field in a curved spacetime. The manipulations here are analogous to those in field theory when deriving the propagator for this field. In the AdS/CFT correspondence, the classical solutions for this field in a curved $d$-dimensional space (called anti--de Sitter) are identified with the renormalization group flow of $(d-1)$-dimensional a strongly coupled \emph{quantum} theory. For a poor particle physicist's take on this, see sections 3.7 and 3.9 of \texttt{arXiv:1602.04228}.
+	
+\item \textsc{[Optional]} Use your result in part (d) to re-derive the Laplacian in Euclidean 3-space:
+\begin{align}
+	\nabla^2 = 
+	\frac{\partial^2}{\partial r^2}
+	+ \frac 2r \frac{\partial}{\partial r}
+	+ \frac{1}{r^2} \frac{\partial^2}{\partial \theta^2}
+	+ \frac{\cos\theta}{r^2\sin\theta} \frac{\partial}{\partial \theta}
+	+ \frac{1}{r^2 \sin^2\theta} \frac{\partial^2}{\partial \phi^2} \ .
+\end{align}
+\end{enumerate}
+
+\textsc{Remark}: The last two problems are from Zee I.5.
+
+%
+%\section{Killing Vectors}
+%
+%\textsc{Remark}: I am shamelessly including this here because we didn't get to it in class. It's based on Section 3.8 of Carroll; the solution to the problem is in the lecture 7 notes. Recall that the 4-velocity of a massive particle is $V^\mu = \partial x^\mu/\partial \tau$, where $\tau$ is the particle's proper time. 
+%\begin{enumerate}[(a)]
+%\item The 4-momentum of a massive particle can be written $p^\mu = mV^\mu$. Show that the geodesic equation may be written
+%\begin{align}
+%	(p\cdot D) p_\mu = 0 \ .
+%\end{align}
+%Note that we've written $p_\mu$ with a lower index for convenience.
+%\item Expand the covariant derivative to show that the constancy of the metric in some direction implies a conserved quantity along the particle's spacetime trajectory. For example,
+%\begin{align}
+%	\partial_3 g_{\nu\lambda} = 0
+%	\quad \Rightarrow
+%	\quad
+%	\frac{d p_3}{d\tau} = 0 \ .
+%\end{align}
+%This is a manifestation of Noether's theorem in curved space.
+%\item More generally, a \textbf{Killing vector} is a vector that points in a direction for which the metric is constant. The vector thus generates isometries (``keeping the metric the same''). For example, the Killing vector for the homogeneity of space in the $x$-direction is simply $K = \partial_1$. In polar coordinates, another isometry is given by $K = \partial_\phi$. 
+%\end{enumerate}
+%
+%
+
+
+
+
+%\section{Zee: curvature, metric singularity}
+%
+%p92
+
+
+
+\vspace{2em}
+{\Large\textbf{\textsf{Phenomenological Problems}}}
+
+\section{Newtonian Gravitational Tidal Force}
+
+In Problem 2, we learned that the \emph{local} in `local inertial frame' means that the freely falling metric can be made to be $\eta_{\mu\nu}$ at only at ``one point at a time,'' and that nearby points see gravity ($g_{\mu\nu} \neq \eta_{\mu\nu}$, or ``this isn't special relativity'') at quadratic order in displacement. We now remind ourselves of the gravitational tidal effect, we consider two nearby particles with trajectories $\vec{x}_1(t)$ and $\vec{x}_2(t)=\vec{x}_1(t)+ \vec{s}(t)$. In the Newtonian limit that we discussed in class, the equations of motion for these two particles are
+\begin{align}
+	\frac{d^2 x^i}{dt^2} = - \frac{\partial \Phi(x)}{\partial x^i} \ ,
+\end{align}
+for $\vec{x} = \vec{x}_{1,2}(t)$ and $\Phi$ identified with the gravitational potential, $\Phi(x) = -GM/|\vec x|$.
+\begin{enumerate}[(a)]
+	\item Write down the expression for the relative acceleration, $d^2\vec{s}/dt^2$, in a Taylor expansion of $\Phi$ to leading order in $\vec{s}$. Comparing to problem 2 on this homework\footnote{In that problem, we sought to see how much freedom we had to make the metric look as flat as possible locally. You could transform $g_{\mu\nu}$ to be $\eta_{\mu\nu}$ at a point, but as you deviate away from that point, deviations from Minkowski space appear at $\mathcal O(\delta x^2)$.}, confirm that the effect of gravitation appears at the right order in an expansion of $g_{00} \sim \Phi$.
+	\item Explicitly write out the above result, which depends on $\partial_i\partial_j\Phi$, as a (3-space) tensorial expression. Identify the moment of inertia tensor\footnote{It is not at all surprising that the moment of inertia tensor shows up. It is, after all, the quadratic term in a multipole expansion of the potential}.
+	\item Place one of the test particles at $x^i = (0,0,r)$. Using the previous two results, explicitly write $d^2\vec{s}/dt^2$ as a matrix equation. \textsc{Answer}:
+	\begin{align}
+		\frac{d^2}{dt^2} 
+		\begin{pmatrix}
+			s_x\\
+			s_y\\
+			s_z
+		\end{pmatrix}
+		=
+		\frac{-GM}{r^3}
+		\begin{pmatrix}
+			1 &&\\
+			&1& \\
+			&& -2
+		\end{pmatrix}
+		\begin{pmatrix}
+			s_x\\
+			s_y\\
+			s_z
+		\end{pmatrix} \ .
+	\end{align}
+	Comment on the directions in which the test particles are pulled relative to one another.
+\end{enumerate}
+\textsc{Remark}: This comes from box 6.3 in Cheng.
+
+%Cheng, box 6.3: geodesic deviation
+
+\section{``Einsteinian'' Gravitational Tidal Force}
+
+Following the same steps as the Newtonian case, use the equations of motion for two test particles in a general spacetime to show that the relativistic version to show that
+\begin{align}
+	\frac{D^2}{d\tau^2} s^\mu 
+	=
+	-R^{\mu}_{\phantom{\mu}\alpha\nu\beta}
+	s^\nu 
+	\frac{dx^\alpha}{d\tau}
+	\frac{dx^\beta}{d\tau} \ ,
+\end{align}
+where $s^\mu$ is the separation between the two test particles in spacetime, where $R^{\mu}_{\phantom{\mu}\alpha\nu\beta}$ is our old frenemy the Riemann curvature tensor. Check that this reduces to the previous problem in the Newtonian limit. Recall that $D/d\tau = (dx^\lambda/d\tau) D_\lambda$.
+
+\section{Expanding Universe}
+
+% based on Carroll 3.5
+
+The metric for an expanding universe is
+\begin{align}
+	ds^2 = dt^2 - a(t)^2 d\vec{x}^2 \ ,
+\end{align}
+where $d\vec{x}^2 = \delta_{ij}dx^i dx^j$ is the Euclidean 3-space metric. The \textbf{scale factor} $a(t)$ is a function that controls the size of the spatial directions as time changes. 
+\begin{enumerate}[(a)]
+	\item Calculate the Christoffel symbols for this metric. \textsc{Hint}: one way to do this is to use the ``Lagrangian trick'' in Problem 1 (and in class) to determine the geodesic equation and then read off the Christoffel symbols as the coefficient of the $(dx^\rho/d\tau) \, (dx^\sigma/d\tau)$ term.  \textsc{Answer}: You should find that $\Gamma^0_{ij} = a \dot a \delta_{ij}$, $\Gamma^i_{j0} = \Gamma^i_{0j} = \dot a/a \delta^i_j$, and all other components are zero. Here $\dot a = a'(t)$.
+	\item Let's study \textbf{null geodesics}, the paths that photons take through spacetime. We choose a path in the $x$-direction with geodesic parameter (``affine parameter'') $\lambda$,
+	\begin{align}
+		x^\mu(\lambda) = \left(t(\lambda),x(\lambda),0,0\right) \ .
+	\end{align}
+	$\lambda$ is chosen such that the photon 4-momentum is $p^\mu = dx^\mu/d\lambda$. This gives
+	\begin{align}
+		\frac{dx}{d\lambda} = \frac{1}{a}\frac{dt}{d\lambda} \ .
+	\end{align}
+	Write and solve the $\mu = 0$ component of the geodesic equation to determine $dt/d\lambda$ up to some constant. What are the dimensions of this constant? Write the constant as some frequency, $\omega_0$. \textsc{Remark}: Given an explicit form for $a(t)$, this expression can then be integrated to give $t(\lambda)$.
+	\item Consider a photon of energy $E$ relative to an observe, Albert, at rest in this frame\footnote{We say that Albert is \textbf{comoving}, he has fixed spatial coordinates, but the metric tells us that the measured distance between spatial coordinates is changing with time.}. $E$ is the zeroth component of the photon 4-momentum $p^\mu$, so it is useful write this in an invariant way: $E = p_\mu u^\mu$. This is invariant and true in any frame\footnote{In general the 4-velocity satisfies $g_{\mu\nu}u^\mu u^\nu = 1$ so that in Albert's frame, 
+		$u^\mu = \left(\sqrt{g_00}, 0,0,0\right)$. For our metric, $g_{00} = 1$ so this is a moot point.}. 
+		Show that $E = \omega_0/a$. Observe that if $a=1$ for some time, $\omega_0$ is simply the energy of the photon in natural units where $\hbar = 1$. 
+	\item Observe that the energy of the photon differs at different time due to the rescaling by $a(t)$. A useful measure for this is
+	\begin{align}
+		z = \frac{E_1 - E_2}{E_2} \ ,
+	\end{align}
+	called the \textbf{cosmological redshift}. Write $z$ as a function of $a(t_1)$ and $a(t_2)$. 
+\end{enumerate}
+\textsc{Remark}: If we have an expression for how the scale factor $a(t)$ evolves with time, then the redshift can be used as a measure of time. If a photon is produced by a known process at a given frequency, and we observe it with some redshift $z$, we may use the expression for $a(t)$ to determine how long ago that photon was emitted. The information about the scale factor evolution will come from the Einstein equation, which relates how the stuff in the universe affects the curvature of spacetime. 
+
+\textsc{Remark}: The observed shift in frequency is reminiscent of a Doppler effect in flat spacetime, when an observer is moving relative to the source of a photon\footnote{If you've forgotten this effect, pick up your favorite, reputable special relativity textbook and re-derive it.}. You may even be tempted to think that this effect is secretly the same thing physically, since the expansion of the universe encoded in $a(t)$ appears to cause points to have some ``velocity'' away from each other. Carroll notes, however, that cosmological redshift is completely different from Doppler effect. Consider the two distinct scenarios:
+\begin{enumerate}
+	\item In a flat, static spacetime, Albert shoots a laser pointer towards Barry. Barry---who is endowed with superhuman speed---then runs very quickly away from the photon, but \emph{stops} before observing the photon. There is no Doppler effect because Barry and Albert are at relative rest when the photon is observed.
+	\item On the other hand, imagine that Albert shoots a laser pointer at Sabrina, who happens to know that at the moment she observes the photon, the universe will conspire such that $a(t)$ is constant---that is, the ``velocity'' from the expansion of the universe stops. In this case, the photon is still redshifted, even though Sabrina and Albert are also at relative rest when the photon is observed.
+\end{enumerate}
+
+\textsc{Remark}: This problem is from Carroll, section 3.5.
+
+%\section{Curvature or Coordinate (Hartle 7-9)}
+
+\vspace{2em}
+{\Large\textbf{\textsf{Mathematical Problems}}}
+
+
+\section{Christoffels of the Poincare Half Plane}
+
+%Carroll 3.195
+
+In Problem 8 of Homework 2, you familiarized yourself with geodesics of the Poincare half plane, a 2D space with metric
+\begin{align}
+	ds^2 = \frac{dx^2 + dy^2}{y^2} \ ,
+\end{align}
+and coordinates defined for $y>0$. You even drew geodesics on the Poincar\'e half plane using a variational principle. Now that we're sophisticated geometers with highfalutin machinery, calculate the components of the connection and the Riemann tensor.
+
+There's a related tensor that we'll need to identify called the \textbf{Ricci tensor}. It is a contraction of the Riemann tensor,
+\begin{align}
+	R_{\mu\nu} = R^\lambda_{\phantom{\lambda}\mu\lambda\nu} \ .
+\end{align}
+Calculate this, too. In fact, you can go even further, and calculate the \textbf{Ricci scalar}, given by $R = R_{\mu\nu}g^{\mu\nu}$. These are all ingredients of Einstein's equation. \textsc{Partial Answer}: $R = -2$.
+
+\section{Properties of The Covariant Derivative}
+
+%See 4.6 of Weinberg. eq. 4.44 of Carroll.
+%
+%(3.17) of Carroll
+
+In class we derived the expression for the covariant derivative acting on a vector. We also wrote the expression for the covariant derivative acting on a one-form (lower-index vector). The general expression for a covariant derivative acting on a tensor is:
+\begin{align}
+	D_\mu T^{\alpha_1\cdots \alpha_k}_{\phantom{\alpha_1\cdots \alpha_k}\beta_1\cdots \beta_\ell}
+	&= 
+	\partial_\mu \, T^{\alpha_1\cdots \alpha_k}_{\phantom{\alpha_1\cdots \alpha_k}\beta_1\cdots \beta_\ell}
+	\\
+	& + \Gamma^{\alpha_1}_{\mu \lambda}\,
+	T^{\lambda\alpha_2\cdots \alpha_k}_{\phantom{\lambda\alpha_2\cdots \alpha_k}\beta_1\cdots \beta_\ell}
+	+
+	\Gamma^{\alpha_2}_{\mu \lambda}\,
+	T^{\alpha_1\lambda\alpha_3\cdots \alpha_k}_{\phantom{\alpha_1\lambda\alpha_3\cdots \alpha_k}\beta_1\cdots \beta_\ell}
+	+\cdots
+	\\
+	&
+	+ \Gamma^{\lambda}_{\mu\beta_1}\,
+	T^{\alpha_1\cdots \alpha_k}_{\phantom{\alpha_1\cdots \alpha_k}\lambda\beta_2\cdots \beta_\ell}
+	+ \Gamma^{\lambda}_{\mu\beta_2}\,
+	T^{\alpha_1\cdots \alpha_k}_{\phantom{\alpha_1\cdots \alpha_k}\beta_1\lambda\beta_2\cdots \beta_\ell}
+	+\cdots \ .
+\end{align}
+\begin{enumerate}[(a)]
+	\item Check that this expression for the case of a one-form, $D_\mu V_\rho$, is indeed covariant. \textsc{Hint}: follow the steps we took in class for a vector.
+	\item Show that the metric and its inverse are covariantly constant\footnote{This is equivalently the statement that the connection is \textbf{metric compatible}.}, $D_\mu g_{\nu\rho} = 0$ and $D_\mu g_{\nu\rho} = 0$. This is important because it means that the metric commutes with raising and lowering indices: $g_{\mu\nu}D_\rho V^\nu = D_\rho V_\mu$.
+	\item Use the definition of the covariant derivative acting on a tensor and the statement that the metric is covariantly constant to derive the expression for the (metric compatible) Christoffel symbols. \textsc{Hint}: Calculate $D_\rho g_{\mu\nu}$ then consider the expression:
+	\begin{align}
+		D_\rho g_{\mu\nu} - D_\mu g_{\nu\rho} - D_\nu g_{\rho\mu} \ .
+	\end{align}
+%\end{enumerate}
+%Difference between two connections is a tensor.
+%
+%Metric compatibility 
+%
+%\begin{enumerate}[(a)]
+	\item Show that the covariant derivative is both linear and satisfies the product rule:
+	\begin{align}
+		D(T+S) &= DT + DS
+		&
+		D(TS) &= (DT)S + T(DS) \ ,
+	\end{align} 
+	where we've suppressed indices. 
+%	\item Show that a metric compatible covariant derivative commutes with the raising and lowering of indices.
+%	\begin{align}
+%		g_{\mu\lambda}D_\rho V^\lambda
+%		=
+%		D_\rho (g_{\mu\nu} V^{\lambda})
+%		= 
+%		D_\rho V_\mu \ .
+%	\end{align}
+%	\item The Christoffel connection is the affine connection that we constructed out of the metric:
+%	\begin{align}
+%		\Gamma^{\sigma}_{\mu\nu} 
+%		= \frac 12 
+%		g^{\sigma \rho}
+%		\left( 
+%			\partial_\mu g_{\nu\rho}
+%			+ \partial_\nu g_{\rho\mu}
+%			- \partial_\rho g_{\mu\nu}
+%		\right) \ .
+%	\end{align}
+%	Show that this connection satisfies
+%	\begin{align}
+%		\Gamma^{\mu}_{\mu\lambda} =
+%		\frac{1}{\sqrt{|g|}} \partial_\lambda \sqrt{|g|} \ ,
+%	\end{align}
+%	which thus gives an expression for the covariant divergence,
+%	\begin{align}
+%		D_\mu V^\mu = 
+%		\frac{1}{\sqrt{|g|}} \partial_\mu \left(\sqrt{|g|} V^\mu \right) \ .
+%	\end{align}
+\end{enumerate}
+%The last point is important zee p.321.
+
+%\section{EM in GR}
+%
+%Weinberg 5-2
+%
+%
+%\section{Lie Derivative}
+
+\section{Properties of the Riemann Tensor}
+
+\textsc{Remark}: This problem is a bit tedious, do as much as you think you need to understand the manipulations and results. The properties here are all useful at some point or another, but the proofs are not necessarily insightful.
+
+From its definition, the Riemann tensor is antisymmetric in its last two indices, $R^\rho_{\phantom{\rho}\sigma \mu\nu} = -R^\rho_{\phantom{\rho}\sigma \nu \mu}$. We now prove a series of useful results. First let us work with an all-lower-index Riemann tensor,
+\begin{align}
+	R_{{\rho}\sigma \mu\nu} = g_{\rho\lambda}R^\rho_{\phantom{\rho}\sigma \mu\nu} \ .
+\end{align}
+Now go into free falling coordinates---as we studied in Problem 2. This means that at a given point, $\Gamma^\cdot_{\cdot\cdot} = 0$ and $\partial_\cdot g^{\cdot\cdot} = 0$, where we are lazy and don't write indices. 
+\begin{enumerate}[(a)]
+	\item Show that in these coordinates,
+\begin{align}
+	\hat{R}_{\rho \sigma \mu\nu} = \frac 12
+	\left(
+	  \partial_\mu \partial_\sigma g_{\rho\nu}
+	- \partial_\mu \partial_\rho g_{\nu\sigma}
+	- \partial_\nu \partial_\sigma g_{\rho\mu}
+	+ \partial_\nu \partial_\rho g_{\mu\sigma}
+	\right) \ .
+\end{align}
+We've given the $\hat{R}_{{\rho}\sigma \mu\nu}$ a hat because it's stylish and to denote the free falling coordinates.
+Below we're going to argue that pairs of indices in this tensor are (anti-)symmetric, convince yourself that these symmetry properties carry over to the Riemann tensor in \emph{any} coordinates, not just the free falling coordinates.
+\item Show the following (based on $\hat{R}_{{\rho}\sigma \mu\nu}$):
+\begin{align}
+	R_{\rho \sigma \mu\nu} & = - R_{\sigma \rho \mu\nu}
+	\\
+	R_{\rho \sigma \mu\nu} & = + R_{\mu\nu \rho \sigma } \ .
+\end{align}
+\item Show that
+\begin{align}
+	R_{\rho \sigma \mu\nu} + R_{\rho  \mu\nu \sigma} + R_{\rho  \nu\sigma \mu} = 0 \ .
+\end{align}
+Using the previous symmetries, show that this, in turn, implies
+\begin{align}
+	R_{\rho [\sigma \mu\nu]} = 0 \ ,
+\end{align}
+where the bracketed indices are permuted antisymmetrically: e.g. $A_{\mu\nu]} = A_{\mu\nu} - A_{\nu\mu}$. 
+\item Show that the Riemann tensor has $d^2(d^2-1)/12$ independent components in $d$-dimensions. 
+\item Prove the \textbf{Bianchi identity}
+\begin{align}
+	D_{[\lambda}R_{\rho\sigma]\mu\nu} = 0 \ .
+\end{align}
+\end{enumerate}
+Are you really still reading this far? Wow, I'm impressed. This problem is quite a bit of work, you can get the big picture from reading Carroll 3.7. 
+
+
+
+
+%
+\end{document}
